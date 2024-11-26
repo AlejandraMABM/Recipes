@@ -1,10 +1,18 @@
 package com.example.recipes
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.recipes.data.RecipeName
+import com.example.recipes.databinding.ActivityDetailBinding
+import com.example.recipes.utis.RetrofitProvider
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity() {
 
@@ -12,14 +20,52 @@ class DetailActivity : AppCompatActivity() {
         const val EXTRA_RECIPE_ID = "RECIPE_ID"
     }
 
+    lateinit var binding: ActivityDetailBinding
+
+    lateinit var recipe: RecipeName
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_detail)
+        // enableEdgeToEdge()
+
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // corregir el problema el id se envía como string y es entero ---corregirlo
+        val idRecibido = intent.getIntExtra(EXTRA_RECIPE_ID)!!
+
+        println("recibiendo el id $idRecibido")
+
+        getRecipe(idRecibido)
     }
+
+    private fun getRecipe(id: Int) {
+        val service = RetrofitProvider.getRetrofit()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                println("id par obtener el nombre de la receta $id ${recipe.name}")
+                recipe = service.findRecipesById(id)!!
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    binding.detailNameRecipeTextView.text = recipe.name
+                    println(" nombre de la receta ${recipe.name}")
+
+
+                }
+            } catch (e: Exception) {
+                Log.e("API", e.stackTraceToString())
+            }
+        }
+    }
+
+
+
+
 }

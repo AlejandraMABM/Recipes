@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipes.data.RecipeName
 import com.example.recipes.databinding.ItemRecipeBinding
+import com.squareup.picasso.Picasso
 
 class RecipeAdapter(var items: List<RecipeName>, val onItemClick: (Int) -> Unit) :
     RecyclerView.Adapter<RecipeViewHolder>() {
@@ -30,6 +31,7 @@ class RecipeAdapter(var items: List<RecipeName>, val onItemClick: (Int) -> Unit)
 
     }
 
+        // como la lista se creo vacia hay q indicar que actualice por nuevas modificaciones
     fun updateItems(items: List<RecipeName>) {
         this.items = items
         notifyDataSetChanged()
@@ -40,6 +42,7 @@ class RecipeAdapter(var items: List<RecipeName>, val onItemClick: (Int) -> Unit)
 class RecipeViewHolder(val binding: ItemRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
     fun render(recipe: RecipeName) {
         binding.nameRecipeTextView.text = recipe.name
+        Picasso.get().load(recipe.image).into(binding.recipeImageView)
     }
 
 }

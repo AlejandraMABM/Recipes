@@ -8,7 +8,7 @@ class RetrofitProvider {
     companion object {
         fun getRetrofit() : RecipeService {
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://dummyjson.com/")
+                .baseUrl("https://dummyjson.com/")  // colocamos la ruta de acceso a la api
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
