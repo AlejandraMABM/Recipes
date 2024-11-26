@@ -61,9 +61,9 @@ class DetailActivity : AppCompatActivity() {
                 recipe = service.findRecipesById(id)
 
                 CoroutineScope(Dispatchers.Main).launch {
-                   // binding.detailNameRecipeTextView.text = recipe.name
+                   binding.detailRecipeNameTextView.text = recipe.name
                     Picasso.get().load(recipe.image).into(binding.detailRecipeImageView)
-                    println(" nombre de la receta ${recipe.name}  ${recipe.id}")
+
                 }
             } catch (e: Exception) {
                 Log.e("API", e.stackTraceToString())
