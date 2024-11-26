@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToDetail(recipe: RecipeName) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.EXTRA_RECIPE_ID,recipe.id)
-        println("enviando el recipe id ${recipe.id}")
+        println("enviando el recipe id ${recipe.id} ")
         startActivity(intent)
 
     }

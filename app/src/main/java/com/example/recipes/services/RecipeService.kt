@@ -14,6 +14,6 @@ interface RecipeService {
     //suspend fun findRecipesByName(@Path("name") query: String) : RecipeName
 
 
-    @GET ("recipes/{character-id}")
-    suspend fun findRecipesById(@Path("character-id") id: String) : RecipeName
+    @GET ("recipes/{id}")
+    suspend fun findRecipesById(@Path("id") int: Int): RecipeName
 }

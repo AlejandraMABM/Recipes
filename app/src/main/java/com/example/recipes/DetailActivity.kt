@@ -39,7 +39,13 @@ class DetailActivity : AppCompatActivity() {
         }
 
         // corregir el problema el id se envía como string y es entero ---corregirlo
-        val idRecibido = intent.getIntExtra(EXTRA_RECIPE_ID)!!
+        val idRecibido = intent.getIntExtra(EXTRA_RECIPE_ID,-1)!!
+
+        if (idRecibido != -1)
+        {  println("id recibido correctamente $idRecibido")}
+        else {
+            println("error no se escribión un id válido")
+        }
 
         println("recibiendo el id $idRecibido")
 
@@ -47,17 +53,17 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun getRecipe(id: Int) {
+
         val service = RetrofitProvider.getRetrofit()
+        println("service $service   $id\"")
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                println("id par obtener el nombre de la receta $id ${recipe.name}")
-                recipe = service.findRecipesById(id)!!
+                recipe = service.findRecipesById(id)
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    binding.detailNameRecipeTextView.text = recipe.name
-                    println(" nombre de la receta ${recipe.name}")
-
-
+                   // binding.detailNameRecipeTextView.text = recipe.name
+                    Picasso.get().load(recipe.image).into(binding.detailRecipeImageView)
+                    println(" nombre de la receta ${recipe.name}  ${recipe.id}")
                 }
             } catch (e: Exception) {
                 Log.e("API", e.stackTraceToString())
