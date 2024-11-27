@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface RecipeService {
 
     @GET("recipes/")
-    suspend fun findAllRecipes() : RecipeNameList
+    suspend fun findAllRecipes(@Query("limit") limit: Int = 0) : RecipeNameList
 
 
 
