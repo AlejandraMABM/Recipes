@@ -3,6 +3,7 @@ package com.example.recipes
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -47,12 +48,15 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        cargarDatos()
+        //cargarDatos()
+        searchRecipe("cookie")
 
 
 
 
     }
+
+
 
     private fun cargarDatos() {
         val service = RetrofitProvider.getRetrofit()
@@ -79,6 +83,32 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(DetailActivity.EXTRA_RECIPE_ID,recipe.id)
         println("enviando el recipe id ${recipe.id} ")
         startActivity(intent)
+
+    }
+
+    private fun searchRecipe(query: String) {
+        binding.loadingProgessBar.visibility = View.VISIBLE
+        val service = RetrofitProvider.getRetrofit()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val result = service.findRecipesByName(query)
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    binding.loadingProgessBar.visibility = View.GONE
+                    if (result.recipes.isEmpty()) {
+                        // Mostrar alerta de que no se han encontrado resultados
+                    }
+                    recipeList = result.recipes
+                    adapter.updateItems(recipeList)
+
+                }
+            } catch (e: Exception) {
+                Log.e("API", e.stackTraceToString())
+
+            }
+        }
+
 
     }
 }
