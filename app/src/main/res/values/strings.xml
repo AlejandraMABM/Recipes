@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Recipes</string>
 
+
+    <string name="no_results">No results for \"%1$s\"!</string>
+    <string name="error">An unexpected error occurred!</string>
+
     <string name="recipe_name">Recetas de Cocina</string>
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //cargarDatos()
-        searchRecipe("cookie")
+        searchRecipe("")
 
 
 
@@ -96,19 +97,42 @@ class MainActivity : AppCompatActivity() {
 
                 CoroutineScope(Dispatchers.Main).launch {
                     binding.loadingProgessBar.visibility = View.GONE
-                    if (result.recipes.isEmpty()) {
+                    if (result.recipes.isEmpty() || recipeList.size == 0) {
+
                         // Mostrar alerta de que no se han encontrado resultados
+                        showAlert()
                     }
+                    binding.emptyView.visibility = View.GONE
+                    binding.recyclerView.visibility = View.VISIBLE
                     recipeList = result.recipes
                     adapter.updateItems(recipeList)
 
                 }
             } catch (e: Exception) {
                 Log.e("API", e.stackTraceToString())
+                CoroutineScope(Dispatchers.Main).launch {
+                    binding.loadingProgessBar.visibility = View.GONE
+                    binding.recyclerView.visibility = View.GONE
+                    binding.emptyView.visibility = View.VISIBLE
+                    binding.noResultsTextView.text = getString(R.string.error)
+                }
 
             }
         }
 
-
     }
+
+    private fun showAlert() {
+        AlertDialog.Builder(this)
+            .setTitle("Búsqueda de Recipes")
+            .setMessage("El recipe no existe, intentalo de nuevo")
+            .setPositiveButton(android.R.string.ok) { dialog, which ->
+                //
+                adapter.updateItems(recipeList)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+
 }
