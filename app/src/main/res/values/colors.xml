@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="accentColor">#009CE9</color>
+    <color name="background">#F1F4F9</color>
 
 </resources>

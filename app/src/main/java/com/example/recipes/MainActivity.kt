@@ -56,7 +56,23 @@ class MainActivity : AppCompatActivity() {
        // searchRecipe("a")
 
 
+        // Crear recipe
+        binding.addRecipeButton.setOnClickListener {
+            val intent = Intent(this, AddRecipeActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
+
+    // activar esta funcion cuando se cargue una nueva tarea
+    //override fun onResume() {
+    //    super.onResume()
+
+        // Cargamos la lista por si se hubiera añadido una tarea nueva
+        //recipeList = taskDAO.findAll().toMutableList()
+       // adapter.updateItems(taskList)
+   // }
 
 
 
