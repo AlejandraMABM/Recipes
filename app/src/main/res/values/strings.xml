@@ -6,4 +6,6 @@
     <string name="error">An unexpected error occurred!</string>
 
     <string name="recipe_name">Recetas de Cocina</string>
+
+    <string name="botton_name_add">Guardar</string>
 </resources>

@@ -47,6 +47,10 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
 
     </FrameLayout>
 
@@ -63,20 +67,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
-    <!-- Task title -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/titleTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Tarea a realizar..."
-        app:startIconDrawable="@drawable/ic_edit"
-        android:layout_marginTop="16dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="50">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/myTextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nuevo Recipe"
+            android:inputType="text"/>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-    />
+
+        <!-- Task title -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/myTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Recipe nuevo..."
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
+            app:startIconDrawable="@drawable/ic_edit">
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:text="@string/botton_name_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
