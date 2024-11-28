@@ -2,13 +2,12 @@ package com.example.recipes
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.recipes.data.RecipeName
 import com.example.recipes.databinding.ActivityDetailBinding
-import com.example.recipes.utis.RetrofitProvider
+import com.example.recipes.utils.RetrofitProvider
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

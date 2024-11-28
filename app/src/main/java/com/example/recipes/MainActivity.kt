@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipes.adapters.RecipeAdapter
 import com.example.recipes.data.RecipeName
 import com.example.recipes.databinding.ActivityMainBinding
-import com.example.recipes.utis.RetrofitProvider
+import com.example.recipes.utils.RetrofitProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

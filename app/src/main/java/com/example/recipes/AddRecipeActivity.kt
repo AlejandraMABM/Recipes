@@ -1,20 +1,15 @@
 package com.example.recipes
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isEmpty
 import com.example.recipes.data.RecipeName
 import com.example.recipes.databinding.ActivityAddRecipeBinding
-import com.example.recipes.databinding.ActivityDetailBinding
-import com.example.recipes.utis.RetrofitProvider
+import com.example.recipes.utils.RetrofitProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.example.recipes.utis
+package com.example.recipes.utils
 
 import com.example.recipes.services.RecipeService
 import retrofit2.Retrofit
