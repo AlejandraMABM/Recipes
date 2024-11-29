@@ -86,8 +86,24 @@
             app:counterMaxLength="50"
             app:startIconDrawable="@drawable/ic_edit">
 
-
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/titleIngredientesTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingredientes"
+            android:textStyle="bold"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"/>
+
+        <EditText
+            android:id="@+id/inputIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Introduce los ingredientes separados por coma"
+            android:inputType="text" />
 
 
     </LinearLayout>
@@ -102,8 +118,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 
 
 

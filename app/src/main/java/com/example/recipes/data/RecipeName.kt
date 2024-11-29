@@ -6,8 +6,8 @@ data class RecipeName (
     // estructura de la api, por cada llave
 
     val id:Int,
-    val name:String,
-    val ingredients: Array<String>,
+    var name:String,
+    var ingredients: List<String>,
     val image: String
 ){
     companion object {

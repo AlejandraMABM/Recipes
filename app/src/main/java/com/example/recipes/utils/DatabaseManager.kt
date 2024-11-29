@@ -17,6 +17,7 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
             "CREATE TABLE ${RecipeName.TABLE_NAME} (" +
                     "${RecipeName.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "${RecipeName.COLUMN_NAME} TEXT," +
+                    "${RecipeName.COLUMN_INGREDIENTS} TEXT," +
                     "${RecipeName.COLUMN_IMAGE} TEXT)"
 
         private const val SQL_DELETE_TABLE = "DROP TABLE IF EXISTS ${RecipeName.TABLE_NAME}"

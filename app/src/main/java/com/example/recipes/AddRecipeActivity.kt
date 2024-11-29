@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.recipes.data.RecipeName
 import com.example.recipes.databinding.ActivityAddRecipeBinding
 import com.example.recipes.utils.RetrofitProvider
+import com.example.todolist.data.providers.RecipeNameDAO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +22,8 @@ class AddRecipeActivity : AppCompatActivity() {
     lateinit var recipe: RecipeName
 
     lateinit var recipeList: List<RecipeName>
+
+    lateinit var recipeNameDao : RecipeNameDAO
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +44,7 @@ class AddRecipeActivity : AppCompatActivity() {
         // verificar si el recipe existe, para no repetirlo
         cargarDatos()
 
-        bottonGuardar()
+        saveRecipe()
 
     }
 
@@ -61,6 +64,8 @@ class AddRecipeActivity : AppCompatActivity() {
                     CoroutineScope(Dispatchers.Main).launch {
 
                         recipeList = result.recipes
+                        var tagsString = recipe.ingredients.joinToString(",")
+                        println("utilizamos una variable  string para recibir los datos de array de ingredientes $tagsString")
                         println("datos cargados $recipeList")
                         //adapter.updateItems(recipeList)
                     }
@@ -71,10 +76,13 @@ class AddRecipeActivity : AppCompatActivity() {
             }
         }
 
-    fun bottonGuardar() {
+    fun saveRecipe() {
         binding.saveButton.setOnClickListener(){
             // obtener el texto del editext
             val inputValue = binding.myTextInputEditText.text.toString()
+
+         // colocar variable que acepta los nuevos ingredientes
+
 
             println("botton guardar $inputValue")
 
@@ -94,13 +102,37 @@ class AddRecipeActivity : AppCompatActivity() {
 
             binding.myTextInputLayout.error = null
 
-            println(" agregar el valor, todo es corecto $inputValue")
-            //recipeList.add(inputValue)
+
+            recipe.name = inputValue
+
+           // transformas la lista de elementos que intriduce el usuario para convertirlo en un array de string
+            // obtener el texto introducido por el usuario
+            val inputField = binding.inputIngredients.text.toString()
+
+            println(" ingredientes introducidos por el usuario  $inputField")
+            val inputText = inputField
+
+
+            println(" ingredientes a convertir $inputText")
+
+            // dividir el texto en una lista de elementos separados por coma
+            val elements = inputText.split(",").map { it.trim() }
+
+            elements.forEach() {
+                println(" ver elementos por lista string $elements")
+            }
+
+
+            println(" agregar el valor, todo es corecto $inputValue ${recipe.name}")
+            recipeNameDao.insert(recipe)
+            recipe.ingredients = elements
+
             Toast.makeText(this, "receta agregada: $inputValue", Toast.LENGTH_SHORT).show()
            binding.myTextInputEditText.text?.clear()
 
 
         }
+        finish()
     }
 
 }
