@@ -21,29 +21,14 @@ data class RecipeName (
             COLUMN_IMAGE)
     }
 }
-
-data class RecipeNameAPI (
-    // estructura de la api, por cada llave
-
+data class RecipeNameAPIResponse(
     val id:Int,
     var name:String,
     var ingredients: List<String>,
     val image: String
-){
-    companion object {
-        const val TABLE_NAME = "RecipeBd"
-        const val COLUMN_ID = "id"
-        const val COLUMN_NAME= "name"
-        const val COLUMN_INGREDIENTS= "ingredients"
-        const val COLUMN_IMAGE = "image"
-    }
-}
+)
 
 // estructura de la api, por cada llave, para listar todas las recertas, desconocemos el id
 data class RecipeNameList(
     val recipes:List<RecipeName>
-)
-
-data class RecipeNameListAPI(
-    val recipes:List<RecipeNameAPI>
 )

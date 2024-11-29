@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.recipes.data.RecipeName
-import com.example.recipes.data.RecipeNameAPI
 import com.example.recipes.databinding.ActivityAddRecipeBinding
 import com.example.recipes.utils.RetrofitProvider
 import com.example.todolist.data.providers.RecipeNameDAO
@@ -20,11 +19,11 @@ class AddRecipeActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAddRecipeBinding
 
-    lateinit var recipe: RecipeNameAPI
+    lateinit var recipe: RecipeName
 
     lateinit var recipeDB: RecipeName
 
-    lateinit var recipeList: List<RecipeNameAPI>
+    lateinit var recipeList: List<RecipeName>
 
     lateinit var recipeNameDao : RecipeNameDAO
 
@@ -80,8 +79,10 @@ class AddRecipeActivity : AppCompatActivity() {
     fun saveRecipeInDB(){
         recipeDB = RecipeName(-1, binding.myTextInputEditText.getText().toString(),
             binding.inputIngredients.getText().toString(),"NULL"  )
-        RecipeNameDAO.insert()
+
+        recipeNameDao.insert(recipeDB)
     }
+    /*
     fun saveRecipe() {
 
             val inputValue = binding.myTextInputEditText.text.toString()
@@ -146,6 +147,7 @@ class AddRecipeActivity : AppCompatActivity() {
            binding.myTextInputEditText.text?.clear()
         finish()
     }
+    */
 }
 
 

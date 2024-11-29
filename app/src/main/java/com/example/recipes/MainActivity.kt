@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipes.adapters.RecipeAdapter
 import com.example.recipes.data.RecipeName
-import com.example.recipes.data.RecipeNameAPI
 import com.example.recipes.databinding.ActivityMainBinding
 import com.example.recipes.utils.RetrofitProvider
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    var recipeList: List<RecipeNameAPI> = emptyList()
+    var recipeList: List<RecipeName> = emptyList()
 
     lateinit var adapter: RecipeAdapter
 
@@ -82,7 +81,15 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
+
                 val result = service.findAllRecipes()
+                var ingredientsAsText: String = ""
+                for(item in 1..result.size){
+                    var stringBuilder: String
+                    result[item].ingredients.forEach {
+                          it
+                    }
+                }
 
                 CoroutineScope(Dispatchers.Main).launch {
                     binding.loadingProgressBar.visibility = View.GONE
@@ -98,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
     // terminar la funcion navigate to detail hecha por nosotros
 
-    private fun navigateToDetail(recipe: RecipeNameAPI) {
+    private fun navigateToDetail(recipe: RecipeName) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.EXTRA_RECIPE_ID,recipe.id)
         startActivity(intent)
