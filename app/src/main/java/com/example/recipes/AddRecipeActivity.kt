@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.recipes.data.RecipeName
+import com.example.recipes.data.RecipeNameAPI
 import com.example.recipes.databinding.ActivityAddRecipeBinding
 import com.example.recipes.utils.RetrofitProvider
 import com.example.todolist.data.providers.RecipeNameDAO
@@ -19,9 +20,11 @@ class AddRecipeActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAddRecipeBinding
 
-    lateinit var recipe: RecipeName
+    lateinit var recipe: RecipeNameAPI
 
-    lateinit var recipeList: List<RecipeName>
+    lateinit var recipeDB: RecipeName
+
+    lateinit var recipeList: List<RecipeNameAPI>
 
     lateinit var recipeNameDao : RecipeNameDAO
 
@@ -34,17 +37,16 @@ class AddRecipeActivity : AppCompatActivity() {
 
         binding = ActivityAddRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        binding.saveButton.setOnClickListener{
+            saveRecipeInDB()
+        }
         // verificar si el recipe existe, para no repetirlo
         cargarDatos()
-
-        saveRecipe()
 
     }
 
@@ -52,6 +54,7 @@ class AddRecipeActivity : AppCompatActivity() {
         // listener para el boton guardar
 
         // cargar datps
+
         fun cargarDatos() {
 
             val service = RetrofitProvider.getRetrofit()
@@ -64,8 +67,6 @@ class AddRecipeActivity : AppCompatActivity() {
                     CoroutineScope(Dispatchers.Main).launch {
 
                         recipeList = result.recipes
-                        var tagsString = recipe.ingredients.joinToString(",")
-                        println("utilizamos una variable  string para recibir los datos de array de ingredientes $tagsString")
                         println("datos cargados $recipeList")
                         //adapter.updateItems(recipeList)
                     }
@@ -76,9 +77,13 @@ class AddRecipeActivity : AppCompatActivity() {
             }
         }
 
+    fun saveRecipeInDB(){
+        recipeDB = RecipeName(-1, binding.myTextInputEditText.getText().toString(),
+            binding.inputIngredients.getText().toString(),"NULL"  )
+        RecipeNameDAO.insert()
+    }
     fun saveRecipe() {
-        binding.saveButton.setOnClickListener(){
-            // obtener el texto del editext
+
             val inputValue = binding.myTextInputEditText.text.toString()
 
          // colocar variable que acepta los nuevos ingredientes
@@ -89,14 +94,12 @@ class AddRecipeActivity : AppCompatActivity() {
             // validar que no este vacio
             if(inputValue.isBlank()) {
                 binding.myTextInputLayout.error = "el campo no puede estar vacio"
-                return@setOnClickListener
             }
 
             // verificar si el valor ya esta en la lista
 
             if (recipeList.any { it.name.equals(inputValue, true) }) {
                 binding.myTextInputLayout.error = "el valor ya está en la lista de recetas"
-                return@setOnClickListener
             }
             // si pasa las validaciones limpia errores y agrega el valor
 
@@ -124,17 +127,25 @@ class AddRecipeActivity : AppCompatActivity() {
 
 
             println(" agregar el valor, todo es corecto $inputValue ${recipe.name}")
-            recipeNameDao.insert(recipe)
+            recipeDB.name = recipe.name
+            val stringBuilder = StringBuilder()
+            for(item in 1..recipe.ingredients.size) {
+                stringBuilder.append(recipe.ingredients[item])
+                if(item == recipe.ingredients.size){
+                }
+                else{
+                    stringBuilder.append(",")
+                }
+            }
+
+            recipeDB.ingredients = stringBuilder.toString()
+            recipeNameDao.insert(recipeDB)
             recipe.ingredients = elements
 
             Toast.makeText(this, "receta agregada: $inputValue", Toast.LENGTH_SHORT).show()
            binding.myTextInputEditText.text?.clear()
-
-
-        }
         finish()
     }
-
 }
 
 

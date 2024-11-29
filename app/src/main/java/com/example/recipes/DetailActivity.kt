@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.recipes.data.RecipeName
+import com.example.recipes.data.RecipeNameAPI
 import com.example.recipes.databinding.ActivityDetailBinding
 import com.example.recipes.utils.RetrofitProvider
 import com.squareup.picasso.Picasso
@@ -21,7 +22,7 @@ class DetailActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityDetailBinding
 
-    lateinit var recipe: RecipeName
+    lateinit var recipe: RecipeNameAPI
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

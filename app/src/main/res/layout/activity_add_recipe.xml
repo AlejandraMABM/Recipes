@@ -49,7 +49,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:minHeight="48dp" />
 
 
     </FrameLayout>
@@ -72,7 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nuevo Recipe"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:minHeight="48dp" />
 
 
         <!-- Task title -->
@@ -103,7 +105,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Introduce los ingredientes separados por coma"
-            android:inputType="text" />
+            android:inputType="text"
+            android:minHeight="48dp" />
 
 
     </LinearLayout>

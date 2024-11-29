@@ -23,7 +23,7 @@ class RecipeNameDAO(val context: Context) {
     fun getContentValues(recipeName: RecipeName): ContentValues {
         return ContentValues().apply {
             put(RecipeName.COLUMN_NAME, recipeName.name)
-            put(RecipeName.COLUMN_INGREDIENTS, recipeName.ingredients.toString())
+            put(RecipeName.COLUMN_INGREDIENTS, recipeName.ingredients)
             put(RecipeName.COLUMN_IMAGE, recipeName.image)
 
         }
@@ -35,7 +35,6 @@ class RecipeNameDAO(val context: Context) {
         val ingredients = cursor.getString(cursor.getColumnIndexOrThrow(RecipeName.COLUMN_INGREDIENTS))
         val image = cursor.getString(cursor.getColumnIndexOrThrow(RecipeName.COLUMN_IMAGE))
 
-//TODO = "A revisar"
        return RecipeName(id.toInt(), name, ingredients, image)
     }
 
@@ -90,7 +89,7 @@ class RecipeNameDAO(val context: Context) {
         try {
             val cursor = db.query(
                 RecipeName.TABLE_NAME,                    // The table to query
-                RecipeName.COLUMN_NAME,                  // The array of columns to return (pass null to get all)
+                RecipeName.COLUMN_NAMES,                  // The array of columns to return (pass null to get all)
                 "${RecipeName.COLUMN_ID} = $id",  // The columns for the WHERE clause
                 null,                   // The values for the WHERE clause
                 null,                       // don't group the rows
@@ -117,7 +116,7 @@ class RecipeNameDAO(val context: Context) {
         try {
             val cursor = db.query(
                 RecipeName.TABLE_NAME,                    // The table to query
-                RecipeName.COLUMN_NAME,                  // The array of columns to return (pass null to get all)
+                RecipeName.COLUMN_NAMES,                  // The array of columns to return (pass null to get all)
                 null,                       // The columns for the WHERE clause
                 null,                   // The values for the WHERE clause
                 null,                       // don't group the rows

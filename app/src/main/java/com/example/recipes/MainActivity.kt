@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.recipes.adapters.RecipeAdapter
 import com.example.recipes.data.RecipeName
+import com.example.recipes.data.RecipeNameAPI
 import com.example.recipes.databinding.ActivityMainBinding
 import com.example.recipes.utils.RetrofitProvider
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    var recipeList: List<RecipeName> = emptyList()
+    var recipeList: List<RecipeNameAPI> = emptyList()
 
     lateinit var adapter: RecipeAdapter
 
@@ -61,8 +62,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddRecipeActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
     // activar esta funcion cuando se cargue una nueva tarea
@@ -99,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 
     // terminar la funcion navigate to detail hecha por nosotros
 
-    private fun navigateToDetail(recipe: RecipeName) {
+    private fun navigateToDetail(recipe: RecipeNameAPI) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.EXTRA_RECIPE_ID,recipe.id)
         startActivity(intent)
